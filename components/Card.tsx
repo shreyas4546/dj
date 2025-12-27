@@ -1,7 +1,7 @@
 import React from 'react';
-import { motion, HTMLMotionProps } from 'framer-motion';
+import { motion } from 'framer-motion';
 
-interface CardProps extends HTMLMotionProps<"div"> {
+interface CardProps extends React.ComponentProps<typeof motion.div> {
   children: React.ReactNode;
   hoverEffect?: boolean;
   className?: string;

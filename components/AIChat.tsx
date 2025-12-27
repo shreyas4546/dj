@@ -65,7 +65,8 @@ const AIChat: React.FC = () => {
     }
   };
 
-  const isSendDisabled = isTyping || !input.trim();
+  const isInputEmpty = !input.trim();
+  const isSendDisabled = isTyping || isInputEmpty;
 
   return (
     <>
@@ -159,16 +160,20 @@ const AIChat: React.FC = () => {
                 disabled={isSendDisabled}
                 initial={false}
                 animate={{ 
-                    opacity: isSendDisabled ? 0.5 : 1,
-                    scale: isSendDisabled ? 0.95 : 1,
-                    cursor: isSendDisabled ? "not-allowed" : "pointer"
+                    opacity: isSendDisabled ? 0.3 : 1,
+                    scale: isSendDisabled ? 0.9 : 1,
+                    // Pulse effect only when typing to indicate processing
+                    boxShadow: isTyping ? ["0 0 0px rgba(0,243,255,0)", "0 0 10px rgba(0,243,255,0.2)", "0 0 0px rgba(0,243,255,0)"] : "none"
+                }}
+                transition={{
+                    boxShadow: { duration: 1.5, repeat: Infinity }
                 }}
                 whileHover={!isSendDisabled ? { scale: 1.05 } : {}}
                 whileTap={!isSendDisabled ? { scale: 0.95 } : {}}
                 className={`p-2 rounded-lg border border-neon-cyan/30 transition-colors ${
                     isSendDisabled 
-                    ? 'bg-neon-cyan/5 text-neon-cyan/50' 
-                    : 'bg-neon-cyan/10 text-neon-cyan hover:bg-neon-cyan hover:text-black'
+                    ? 'bg-neon-cyan/5 text-neon-cyan/50 cursor-not-allowed' 
+                    : 'bg-neon-cyan/10 text-neon-cyan hover:bg-neon-cyan hover:text-black cursor-pointer'
                 }`}
               >
                 <Send className="w-4 h-4" />

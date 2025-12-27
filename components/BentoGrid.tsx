@@ -1,19 +1,17 @@
 import React, { useRef, useState } from 'react';
-import { motion, HTMLMotionProps, MotionProps } from 'framer-motion';
+import { motion, Variants } from 'framer-motion';
 
 interface BentoGridProps {
   children: React.ReactNode;
   className?: string;
 }
 
-export interface BentoItemProps extends HTMLMotionProps<"div"> {
-  children: React.ReactNode;
-  className?: string;
+export interface BentoItemProps extends React.ComponentProps<typeof motion.div> {
   colSpan?: string;
   rowSpan?: string;
-  initial?: any;
-  animate?: any;
-  transition?: any;
+  children?: React.ReactNode;
+  className?: string;
+  variants?: Variants;
 }
 
 export const BentoGrid: React.FC<BentoGridProps> = ({ children, className = '' }) => {

@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Cpu, Globe, Database, Lock, Code, BarChart } from 'lucide-react';
 import Section from '../components/Section';
 import { BentoGrid, BentoItem } from '../components/BentoGrid';
+import PageTransition, { itemVariants } from '../components/PageTransition';
 
 const Services: React.FC = () => {
   const services = [
@@ -15,39 +16,43 @@ const Services: React.FC = () => {
   ];
 
   return (
-    <div className="pt-24 min-h-screen">
-      <Section spacing="large">
-        <div className="text-center mb-20">
-          <h1 className="text-5xl md:text-7xl font-display font-bold mb-6 leading-tight">Our Services</h1>
-          <p className="text-muted text-xl max-w-2xl mx-auto leading-relaxed">
-            Comprehensive AI solutions tailored for scalability, security, and impact.
-          </p>
-        </div>
+    <PageTransition>
+      <div className="pt-24 min-h-screen">
+        <Section spacing="large">
+          <div className="text-center mb-20">
+            <motion.h1 variants={itemVariants} className="text-5xl md:text-7xl font-display font-bold mb-6 leading-tight">Our Services</motion.h1>
+            <motion.p variants={itemVariants} className="text-muted text-xl max-w-2xl mx-auto leading-relaxed">
+              Comprehensive AI solutions tailored for scalability, security, and impact.
+            </motion.p>
+          </div>
 
-        <BentoGrid className="h-auto md:h-[900px]">
-          {services.map((service, idx) => (
-            <BentoItem
-              key={idx}
-              colSpan={service.col}
-              rowSpan={service.row}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: idx * 0.1 }}
-            >
-              <div className="p-4 bg-white/5 w-fit rounded-xl mb-6 group-hover:scale-110 transition-transform duration-300 border border-white/10 group-hover:bg-white/10">
-                <div className="text-neon-cyan w-8 h-8">
-                  {service.icon}
+          <BentoGrid className="h-auto md:h-[900px]">
+            {services.map((service, idx) => (
+              <BentoItem
+                key={idx}
+                colSpan={service.col}
+                rowSpan={service.row}
+                variants={itemVariants} // Using standard item variants here
+                // Resetting BentoItem specific props to let PageTransition control it
+                initial="initial"
+                animate="animate"
+                exit="exit"
+              >
+                <div className="p-4 bg-white/5 w-fit rounded-xl mb-6 group-hover:scale-110 transition-transform duration-300 border border-white/10 group-hover:bg-white/10">
+                  <div className="text-neon-cyan w-8 h-8">
+                    {service.icon}
+                  </div>
                 </div>
-              </div>
-              <div>
-                <h3 className="text-3xl font-bold font-display mb-3">{service.title}</h3>
-                <p className="text-muted group-hover:text-white transition-colors leading-relaxed">{service.desc}</p>
-              </div>
-            </BentoItem>
-          ))}
-        </BentoGrid>
-      </Section>
-    </div>
+                <div>
+                  <h3 className="text-3xl font-bold font-display mb-3">{service.title}</h3>
+                  <p className="text-muted group-hover:text-white transition-colors leading-relaxed">{service.desc}</p>
+                </div>
+              </BentoItem>
+            ))}
+          </BentoGrid>
+        </Section>
+      </div>
+    </PageTransition>
   );
 };
 

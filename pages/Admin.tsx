@@ -5,6 +5,7 @@ import { Lock, User, Eye, EyeOff, Shield, AlertCircle } from 'lucide-react';
 import Section from '../components/Section';
 import Card from '../components/Card';
 import Button from '../components/Button';
+import PageTransition, { itemVariants } from '../components/PageTransition';
 
 const data = [
   { name: 'Mon', candidates: 4, traffic: 2400 },
@@ -46,16 +47,12 @@ const Admin: React.FC = () => {
 
   if (!isAuthenticated) {
     return (
-      <div className="pt-24 min-h-screen flex items-center justify-center relative overflow-hidden">
+      <PageTransition className="pt-24 min-h-screen flex items-center justify-center relative overflow-hidden">
         {/* Background elements */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-neon-purple/10 rounded-full blur-[120px] pointer-events-none" />
         
         <div className="w-full max-w-md px-4 z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
+          <motion.div variants={itemVariants}>
             <Card className="border-neon-purple/20">
               <div className="text-center mb-8">
                 <div className="w-16 h-16 bg-white/5 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-white/10 shadow-[0_0_30px_rgba(188,19,254,0.1)]">
@@ -134,17 +131,17 @@ const Admin: React.FC = () => {
             </Card>
           </motion.div>
         </div>
-      </div>
+      </PageTransition>
     );
   }
 
   // Dashboard Content
   return (
-    <div className="pt-24 min-h-screen">
+    <PageTransition className="pt-24 min-h-screen">
       <Section spacing="large">
         <div className="flex justify-between items-center mb-10">
-            <h1 className="text-4xl font-display font-bold">Admin Dashboard</h1>
-            <div className="flex items-center gap-4">
+            <motion.h1 variants={itemVariants} className="text-4xl font-display font-bold">Admin Dashboard</motion.h1>
+            <motion.div variants={itemVariants} className="flex items-center gap-4">
                  <div className="flex items-center gap-2 text-sm text-green-400 bg-green-400/10 px-3 py-1.5 rounded-full border border-green-400/20">
                     <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
                     SECURE CONNECTION ACTIVE
@@ -155,26 +152,26 @@ const Admin: React.FC = () => {
                  >
                     Logout
                  </button>
-            </div>
+            </motion.div>
         </div>
         
         {/* Stats Row */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
+            <motion.div variants={itemVariants}>
                 <Card hoverEffect={false}>
                     <h3 className="text-muted text-sm uppercase tracking-wider mb-4 font-bold">Total Candidates</h3>
                     <div className="text-5xl font-bold text-white mb-2 font-display">1,204</div>
                     <span className="text-sm text-green-400 font-mono bg-green-400/10 px-2 py-1 rounded">+12% THIS WEEK</span>
                 </Card>
             </motion.div>
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
+            <motion.div variants={itemVariants}>
                 <Card hoverEffect={false}>
                     <h3 className="text-muted text-sm uppercase tracking-wider mb-4 font-bold">Avg Match Score</h3>
                     <div className="text-5xl font-bold text-neon-cyan mb-2 font-display">84.2%</div>
                     <span className="text-sm text-muted font-mono">AI ACCURACY METRIC</span>
                 </Card>
             </motion.div>
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
+            <motion.div variants={itemVariants}>
                 <Card hoverEffect={false}>
                     <h3 className="text-muted text-sm uppercase tracking-wider mb-4 font-bold">Server Load</h3>
                     <div className="text-5xl font-bold text-neon-purple mb-2 font-display">34%</div>
@@ -185,7 +182,7 @@ const Admin: React.FC = () => {
 
         {/* Charts Row */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 mb-8">
-            <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.4 }}>
+            <motion.div variants={itemVariants}>
                 <Card hoverEffect={false} className="h-[500px]">
                     <h3 className="text-xl font-bold mb-8 font-display">Traffic Analytics</h3>
                     <ResponsiveContainer width="100%" height="85%">
@@ -209,7 +206,7 @@ const Admin: React.FC = () => {
                 </Card>
             </motion.div>
 
-            <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.5 }}>
+            <motion.div variants={itemVariants}>
                 <Card hoverEffect={false} className="h-[500px]">
                     <h3 className="text-xl font-bold mb-8 font-display">Resume Processing</h3>
                     <ResponsiveContainer width="100%" height="85%">
@@ -229,7 +226,7 @@ const Admin: React.FC = () => {
             </motion.div>
         </div>
       </Section>
-    </div>
+    </PageTransition>
   );
 };
 
