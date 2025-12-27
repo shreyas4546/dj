@@ -7,6 +7,7 @@ export interface ButtonProps extends HTMLMotionProps<"button"> {
   children: React.ReactNode;
   className?: string;
   type?: "button" | "submit" | "reset";
+  disabled?: boolean;
 }
 
 const Button: React.FC<ButtonProps> = ({ 
@@ -14,21 +15,33 @@ const Button: React.FC<ButtonProps> = ({
   icon, 
   children, 
   className = '',
+  disabled,
   ...props 
 }) => {
-  const baseStyles = "px-8 py-4 font-bold rounded-lg flex items-center justify-center gap-2 transition-all duration-300";
+  const baseStyles = "px-8 py-4 font-bold rounded-lg flex items-center justify-center gap-2 transition-all duration-300 relative overflow-hidden";
   
   const variants = {
-    primary: "bg-neon-cyan text-black hover:bg-white hover:scale-[1.02] shadow-[0_0_20px_rgba(0,243,255,0.3)]",
-    secondary: "glass-panel text-white hover:bg-white/10 border border-neon-purple/30 hover:border-neon-purple",
-    outline: "border border-white/20 text-muted hover:text-white hover:border-white"
+    primary: "bg-neon-cyan text-black shadow-[0_0_20px_rgba(0,243,255,0.3)]",
+    secondary: "glass-panel text-white border border-neon-purple/30",
+    outline: "border border-white/20 text-muted"
   };
+
+  const hoverStyles = !disabled ? {
+    primary: "hover:bg-white",
+    secondary: "hover:bg-white/10 hover:border-neon-purple",
+    outline: "hover:text-white hover:border-white"
+  } : {
+    primary: "", secondary: "", outline: ""
+  };
+
+  const disabledStyles = disabled ? "opacity-50 cursor-not-allowed grayscale pointer-events-none" : "";
 
   return (
     <motion.button
-      whileHover={{ scale: 1.02 }}
-      whileTap={{ scale: 0.98 }}
-      className={`${baseStyles} ${variants[variant]} ${className}`}
+      whileHover={!disabled ? { scale: 1.02 } : undefined}
+      whileTap={!disabled ? { scale: 0.98 } : undefined}
+      className={`${baseStyles} ${variants[variant]} ${hoverStyles[variant]} ${disabledStyles} ${className}`}
+      disabled={disabled}
       {...props}
     >
       {children}
