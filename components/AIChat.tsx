@@ -29,20 +29,20 @@ const AIChat: React.FC = () => {
     setIsTyping(true);
 
     try {
-      if (process.env.API_KEY) {
-        const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+      const apiKey = process.env.API_KEY;
+      if (apiKey) {
+        const ai = new GoogleGenAI({ apiKey });
         const response = await ai.models.generateContent({
           model: 'gemini-3-pro-preview',
           contents: userMsg,
           config: {
-            // Enable thinking mode with max budget for complex reasoning
             thinkingConfig: { thinkingBudget: 32768 }
           }
         });
         
         setMessages(prev => [...prev, { role: 'ai', text: response.text || "I processed that, but have no output." }]);
       } else {
-        // Fallback simulation if no API key is present
+        // Fallback simulation
         setTimeout(() => {
           let response = "I'm processing your request using our proprietary neural network.";
           if (userMsg.toLowerCase().includes('job') || userMsg.toLowerCase().includes('career')) {
@@ -53,7 +53,7 @@ const AIChat: React.FC = () => {
           setMessages(prev => [...prev, { role: 'ai', text: response }]);
           setIsTyping(false);
         }, 1500);
-        return; // Early return to avoid setting isTyping false twice
+        return;
       }
     } catch (error) {
       console.error("AI Error:", error);
@@ -64,6 +64,8 @@ const AIChat: React.FC = () => {
       }
     }
   };
+
+  const isSendDisabled = isTyping || !input.trim();
 
   return (
     <>
@@ -119,10 +121,22 @@ const AIChat: React.FC = () => {
               ))}
               {isTyping && (
                 <div className="flex justify-start">
-                  <div className="bg-white/5 p-3 rounded-lg rounded-bl-none border border-white/10 flex gap-1">
-                    <span className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce"></span>
-                    <span className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce delay-100"></span>
-                    <span className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce delay-200"></span>
+                  <div className="bg-white/5 p-3 rounded-lg rounded-bl-none border border-white/10 flex items-center gap-1">
+                    <motion.div
+                      className="w-1.5 h-1.5 bg-neon-cyan rounded-full"
+                      animate={{ scale: [1, 1.5, 1], opacity: [0.4, 1, 0.4] }}
+                      transition={{ duration: 1, repeat: Infinity, delay: 0 }}
+                    />
+                    <motion.div
+                      className="w-1.5 h-1.5 bg-neon-cyan rounded-full"
+                      animate={{ scale: [1, 1.5, 1], opacity: [0.4, 1, 0.4] }}
+                      transition={{ duration: 1, repeat: Infinity, delay: 0.2 }}
+                    />
+                    <motion.div
+                      className="w-1.5 h-1.5 bg-neon-cyan rounded-full"
+                      animate={{ scale: [1, 1.5, 1], opacity: [0.4, 1, 0.4] }}
+                      transition={{ duration: 1, repeat: Infinity, delay: 0.4 }}
+                    />
                   </div>
                 </div>
               )}
@@ -135,18 +149,30 @@ const AIChat: React.FC = () => {
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                onKeyDown={(e) => e.key === 'Enter' && !isTyping && handleSend()}
+                onKeyDown={(e) => e.key === 'Enter' && !isSendDisabled && handleSend()}
                 disabled={isTyping}
                 placeholder={isTyping ? "Nexus is thinking..." : "Ask about our AI services..."}
                 className="flex-1 bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-neon-cyan/50 transition-colors disabled:opacity-50"
               />
-              <button 
+              <motion.button 
                 onClick={handleSend}
-                disabled={isTyping || !input.trim()}
-                className="p-2 bg-neon-cyan/10 rounded-lg border border-neon-cyan/30 text-neon-cyan hover:bg-neon-cyan hover:text-black transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                disabled={isSendDisabled}
+                initial={false}
+                animate={{ 
+                    opacity: isSendDisabled ? 0.5 : 1,
+                    scale: isSendDisabled ? 0.95 : 1,
+                    cursor: isSendDisabled ? "not-allowed" : "pointer"
+                }}
+                whileHover={!isSendDisabled ? { scale: 1.05 } : {}}
+                whileTap={!isSendDisabled ? { scale: 0.95 } : {}}
+                className={`p-2 rounded-lg border border-neon-cyan/30 transition-colors ${
+                    isSendDisabled 
+                    ? 'bg-neon-cyan/5 text-neon-cyan/50' 
+                    : 'bg-neon-cyan/10 text-neon-cyan hover:bg-neon-cyan hover:text-black'
+                }`}
               >
                 <Send className="w-4 h-4" />
-              </button>
+              </motion.button>
             </div>
           </motion.div>
         )}

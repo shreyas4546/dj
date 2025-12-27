@@ -39,14 +39,23 @@ const Footer: React.FC = () => {
           <div>
             <h3 className="font-display font-bold text-white mb-4">Connect</h3>
             <div className="flex space-x-4">
-              <div className="w-10 h-10 rounded-full glass-panel flex items-center justify-center hover:bg-neon-cyan/20 cursor-pointer transition-all">
+              <div className="w-10 h-10 rounded-full glass-panel flex items-center justify-center hover:bg-neon-cyan/20 cursor-pointer transition-all group relative">
                 <Github className="w-5 h-5 text-white" />
+                <span className="absolute -top-10 left-1/2 -translate-x-1/2 bg-black/90 backdrop-blur-md border border-white/10 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap pointer-events-none shadow-lg">
+                  GitHub
+                </span>
               </div>
-              <div className="w-10 h-10 rounded-full glass-panel flex items-center justify-center hover:bg-neon-cyan/20 cursor-pointer transition-all">
+              <div className="w-10 h-10 rounded-full glass-panel flex items-center justify-center hover:bg-neon-cyan/20 cursor-pointer transition-all group relative">
                 <Twitter className="w-5 h-5 text-white" />
+                <span className="absolute -top-10 left-1/2 -translate-x-1/2 bg-black/90 backdrop-blur-md border border-white/10 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap pointer-events-none shadow-lg">
+                  Twitter
+                </span>
               </div>
-              <div className="w-10 h-10 rounded-full glass-panel flex items-center justify-center hover:bg-neon-cyan/20 cursor-pointer transition-all">
+              <div className="w-10 h-10 rounded-full glass-panel flex items-center justify-center hover:bg-neon-cyan/20 cursor-pointer transition-all group relative">
                 <Linkedin className="w-5 h-5 text-white" />
+                <span className="absolute -top-10 left-1/2 -translate-x-1/2 bg-black/90 backdrop-blur-md border border-white/10 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap pointer-events-none shadow-lg">
+                  LinkedIn
+                </span>
               </div>
             </div>
           </div>

@@ -33,7 +33,7 @@ const Home: React.FC = () => {
           <div className="absolute inset-0 opacity-[0.05] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-overlay" />
         </div>
 
-        {/* Mouse Reactive Particles */}
+        {/* Mouse Reactive Particles - z-index 2 */}
         <div className="absolute inset-0 z-[2] w-full h-full pointer-events-none">
             <HeroParticles />
         </div>
@@ -45,6 +45,7 @@ const Home: React.FC = () => {
              </h1>
         </div>
         
+        {/* Main Content */}
         <div className="max-w-5xl mx-auto text-center z-10 relative">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
