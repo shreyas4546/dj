@@ -4,8 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mastersolis Infotech</title>
+    
+    <!-- Tailwind CSS (Using CDN for simplicity in this setup) -->
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind Config -->
     <script>
       tailwind.config = {
         darkMode: 'class',
@@ -69,6 +75,17 @@
         },
       }
     </script>
+    
+    <!-- Polyfill for code using process.env.API_KEY -->
+    <script>
+      window.process = {
+        env: {
+          NODE_ENV: 'development',
+          API_KEY: '' 
+        }
+      };
+    </script>
+
     <style>
       body {
         background-color: #030014;
@@ -80,13 +97,8 @@
         backdrop-filter: blur(10px);
         border: 1px solid rgba(255, 255, 255, 0.05);
       }
-      /* Animation Utilities */
-      .animation-delay-2000 {
-        animation-delay: 2s;
-      }
-      .animation-delay-4000 {
-        animation-delay: 4s;
-      }
+      .animation-delay-2000 { animation-delay: 2s; }
+      .animation-delay-4000 { animation-delay: 4s; }
       .aurora-bg {
         background-image: 
           repeating-linear-gradient(100deg, #030014 0%, #030014 7%, transparent 10%, transparent 12%, #030014 16%),
@@ -95,40 +107,34 @@
         background-position: 0% 50%;
         opacity: 0.2;
       }
-      /* Custom scrollbar */
-      ::-webkit-scrollbar {
-        width: 8px;
-      }
-      ::-webkit-scrollbar-track {
-        background: #030014;
-      }
-      ::-webkit-scrollbar-thumb {
-        background: #1f1b40;
-        border-radius: 4px;
-      }
-      ::-webkit-scrollbar-thumb:hover {
-        background: #bc13fe;
-      }
+      ::-webkit-scrollbar { width: 8px; }
+      ::-webkit-scrollbar-track { background: #030014; }
+      ::-webkit-scrollbar-thumb { background: #1f1b40; border-radius: 4px; }
+      ::-webkit-scrollbar-thumb:hover { background: #bc13fe; }
     </style>
   <script type="importmap">
 {
   "imports": {
-    "@react-three/fiber": "https://esm.sh/@react-three/fiber@^9.4.2",
-    "react/": "https://esm.sh/react@^19.2.3/",
-    "react": "https://esm.sh/react@^19.2.3",
-    "@react-three/drei": "https://esm.sh/@react-three/drei@^10.7.7",
     "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
     "lucide-react": "https://esm.sh/lucide-react@^0.562.0",
-    "react-router-dom": "https://esm.sh/react-router-dom@^7.11.0",
-    "recharts": "https://esm.sh/recharts@^3.6.0",
-    "three": "https://esm.sh/three@^0.182.0",
     "framer-motion": "https://esm.sh/framer-motion@^12.23.26",
-    "@google/genai": "https://esm.sh/@google/genai@^1.34.0"
+    "recharts": "https://esm.sh/recharts@^3.6.0",
+    "@google/genai": "https://esm.sh/@google/genai@^1.34.0",
+    "@react-three/drei": "https://esm.sh/@react-three/drei@^10.7.7",
+    "@react-three/fiber": "https://esm.sh/@react-three/fiber@^9.4.2",
+    "react-router-dom": "https://esm.sh/react-router-dom@^7.11.0",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react": "https://esm.sh/react@^19.2.3",
+    "three": "https://esm.sh/three@^0.182.0",
+    "vite": "https://esm.sh/vite@^7.3.0",
+    "@vitejs/plugin-react": "https://esm.sh/@vitejs/plugin-react@^5.1.2"
   }
 }
 </script>
 </head>
   <body>
     <div id="root"></div>
+    <!-- Vite Entry Point -->
+    <script type="module" src="/index.tsx"></script>
   </body>
 </html>

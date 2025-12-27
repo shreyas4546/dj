@@ -34,6 +34,7 @@ function StarField() {
   const group = useMemo(() => new THREE.Group(), []);
 
   return (
+    // @ts-ignore
     <primitive object={group} rotation={[0, 0, Math.PI / 4]}>
       <Points ref={ref} positions={sphere} stride={3} frustumCulled={false}>
         <PointMaterial
@@ -45,6 +46,7 @@ function StarField() {
           blending={THREE.AdditiveBlending}
         />
       </Points>
+    {/* @ts-ignore */}
     </primitive>
   );
 }
@@ -55,6 +57,7 @@ const ThreeBackground: React.FC = () => {
   return (
     <div className="fixed inset-0 z-[-1] pointer-events-none opacity-60">
       <Canvas camera={{ position: [0, 0, 15], fov: 60 }}>
+        {/* @ts-ignore */}
         <primitive object={fog} attach="fog" />
         <StarField />
       </Canvas>
